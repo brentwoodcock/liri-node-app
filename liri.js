@@ -73,7 +73,28 @@ var getSong = function(songName) {
 }
 
 var getMovie = function(movieName) {
-	console.log(movieName + ' requested');
+
+	if (movieName === undefined) {
+		movieName = 'Mr Nobody';
+	}
+
+	request("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&r=json", function(err, response, body) {
+		if(err) {
+			console.log(err);
+			return;
+		}
+
+		body = JSON.parse(body);
+		console.log('Title: ' + body.Title);
+		console.log('Year: ' + body.Year);
+		console.log('IMDB Rating: ' + body.imdbRating);
+		console.log('Country: ' + body.Country);
+		console.log('Language: ' + body.Language);
+		console.log('Plot: ' + body.Plot);
+		console.log('Actors: ' + body.Actors);
+		console.log('Rotten Tomatoes Rating: ' + body.tomatoRating);
+		console.log('Rotten Tomatoes URL: ' + body.tomatoURL);
+	})
 }
 
 var getRandom = function() {
